@@ -36,7 +36,7 @@ def minibatch(x_train, y_train, w, b, num_epochs, digit):
 		dist = np.square((y_train - pred)).tolist()
 		accuracy = dist.count(0)/len(dist);
 		cost = cost_function_sq_error(pred,y_train)
-		print("Classifer for digit: "+str(digit)+",		Epoch: " +str(num_epoch)+",     Accuracy: "+str(accuracy) +",     Cost: "+str(cost))
+		print("Classifer for digit: "+str(digit)+",		Epoch: " +str(num_epoch)+",    Training Accuracy: "+str(accuracy) +",   Training Cost: "+str(cost))
 		for i in range(0, m, batch_size):
 			xi = x_shuffled[i:i+batch_size]
 			yi = y_shuffled[i:i+batch_size]
