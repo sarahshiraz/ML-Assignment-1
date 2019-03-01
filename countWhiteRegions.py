@@ -78,34 +78,35 @@ def matprint(mat, fmt="g"):
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 conn_comp_train = np.zeros((60000))
+''' Finding number of  white regions for training images '''
 for i in range(x_train.shape[0]):
     img = x_train[i]
-    (thresh, im_bw) = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    (thresh, im_bw) = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)     # converting image to binary
     graph = im_bw
     graph[graph==0]=1
     graph[graph==255]=0
     row = len(graph)
     col = len(graph[0]) 
     g= Graph(row, col, graph) 
-    conn_comp_train[i] = g.countWhiteRegions();
+    conn_comp_train[i] = g.countWhiteRegions();             # finding number of white regions in the image
     if(i%1000 == 0):
         print(str(i) + " done...")
 
-
+''' Finding number of  white regions for testing images '''
 conn_comp_test = np.zeros((10000))
 for i in range(x_test.shape[0]):
     img = x_test[i]
-    (thresh, im_bw) = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    (thresh, im_bw) = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)     # converting image to binary
     graph = im_bw
     graph[graph==0]=1
     graph[graph==255]=0
     row = len(graph)
     col = len(graph[0]) 
     g= Graph(row, col, graph) 
-    conn_comp_test[i] = g.countWhiteRegions();
+    conn_comp_test[i] = g.countWhiteRegions();          # finding number of white regions in the image
     if(i%1000 == 0):
         print(str(i) + " done...")
 
-np.save('conn_comp_train.npy', conn_comp_train)
-np.save('conn_comp_test.npy', conn_comp_test)
+np.save('conn_comp_train.npy', conn_comp_train)         # Saving the vector of the number of white regions for all training images in a .npy file
+np.save('conn_comp_test.npy', conn_comp_test)           # Saving the vector of the number of white regions for all testing images in a .npy file
 
